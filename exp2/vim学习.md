@@ -2,7 +2,7 @@
 
 #### 一：录屏视频
 
-[![3](/img/3.png)](https://asciinema.org/a/X9r6YZBO4qL5333PEIHJoyO0H)
+[![3](img/3.png)](https://asciinema.org/a/X9r6YZBO4qL5333PEIHJoyO0H)
 
 #### 二：自查清单
 

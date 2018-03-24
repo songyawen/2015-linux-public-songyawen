@@ -11,14 +11,14 @@
   - cho重启、切断电源、CPU停止工作、暂停系统 
 
   - 进入交互式休眠状态（进入冬眠状态相同）
-
-    ![hybrid-sleep](img\hybrid-sleep.png)
+     
+    ![hybrid-sleep](img/hybrid-sleep.png)
 
     关于错误信息 :https://github.com/systemd/systemd/issues/6729 
 
   - 进入救援模式
 
-    ![rescue](img\rescue.png)
+    ![rescue](img/rescue.png)
 
 - systemd-analyze + hostnamectl+localectl
 
@@ -78,11 +78,11 @@
   # 注意全部都要绝对路径
   # 问题 ：根据原文 ：“上面的命令相当于在/etc/systemd/system目录添加一个符号链接，指向/usr/lib/systemd/system里面的httpd.service文件。” 应该不用enable也可以 但是没有enable就不能开机执行
   ```
-  ![mountauto](img\mountauto.png)
+  ![mountauto](img/mountauto.png)
 
 - 基于LVM（逻辑分卷管理）的分区如何实现动态扩容和缩减容量？
 
-  ![lvm](img\lvm.png)
+  ![lvm](img/lvm.png)
 
   - 单纯完成了作业要求
 
@@ -90,11 +90,11 @@
 
   - 在networking.service的设置文件中添加：
 
-  ![networking](img\networking.png)
+  ![networking](img/networking.png)
 
   - 结果
 
-    ![net](img\net.png)
+    ![net](img/net.png)
 
     - 问题
       - 在语义上 认为通过before(after) network-online.target 就可以 但是实际上，通过测试却不可以 判断无效 （https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/）
@@ -131,7 +131,7 @@
   RuntimeDirectoryMode=755
   ```
 
-  ![nokilling](img\nokilling.png)
+  ![nokilling](img/nokilling.png)
 
   但相应的问题就是相关的stop指令执行不了了
 

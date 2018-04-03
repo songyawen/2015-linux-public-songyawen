@@ -1,5 +1,11 @@
 ## shell编程
 
+### 文件说明
+
+- 图片处理：image_process.sh
+- 球员信息分析：bash_file_process.sh
+- 日志分析： log_deal_with.sh
+
 ### 任务一：用bash编写一个图片批处理脚本，实现以下功能：
 
 - 支持命令行参数方式使用不同功能

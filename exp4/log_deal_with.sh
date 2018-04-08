@@ -12,5 +12,5 @@ grep -oP '\s+\d{3}\s+(?=\d+)' web_log.tsv | sort | uniq -c | sort -k1 -nr | awk 
 echo "-------------------------------------------------------------------"
 grep -oP '\s+4\d{2}\s+(?=\d+)' web_log.tsv | sort -u | xargs -i sh -c "grep  -P '\s+{}(?=\d+)'  web_log.tsv  | awk '{printf \"%s %d \n\",\$5,\$6 }'| sort | uniq -c | sort -nr -k1 |head -10"
 echo "-------------------------------------------------------------------"
-grep $1 web_log.tsv | awk '{printf "%s \n",$1}'| sort | uniq -c | sort -nr -k1 | head -10
+grep -P $1'\s+' web_log.tsv | awk '{printf "%s \n",$1}'| sort | uniq -c | sort -nr -k1 | head -10
 echo "-------------------------------------------------------------------"

@@ -99,3 +99,19 @@
 - 遇见了不可见字符\001编码问题（SOH character ）
 
   参考链接：https://stackoverflow.com/questions/22339368/how-to-remove-octal-character-using-linux
+
+
+
+
+
+## 更改
+
+- 最长的名字多个
+
+  ![change](img/change.png)
+
+- 更正URL对应主机查询（精确匹配）
+
+  ![change](img/change2.png)
+
+  ​

@@ -2,7 +2,6 @@
 
 #read tsv file into array
 
-
 function deal_with_tsv_file {
 	file_path=$1
 	#str_arr=$(cat -A $file_path | grep -oP '[\w\s]+\^I')
@@ -15,7 +14,6 @@ function deal_with_tsv_file {
 			flag_col_name=0
 		else 
 		str_arr=(${line[@]// /*})
-		if [[ ${#str_arr[@]} == 10 ]];then
 		gr_arr[$i]=${str_arr[0]}
 		co_arr[$i]=${str_arr[1]}
 		rank_arr[$i]=${str_arr[2]}
@@ -25,16 +23,21 @@ function deal_with_tsv_file {
 		sel_arr[$i]=${str_arr[6]}
 		club_arr[$i]=${str_arr[7]}
 		pl_arr[$i]=${str_arr[8]}
-		cap_arr[$i]=${str_arr[9]}
-		i=$(($i+1))
-		else
-			echo $i
-			echo "$line"
-			echo ${#str_arr[@]}
+		special=${str_arr[9]}
+		if [[ $special != $special ]];then
+			special=${str_arr[10]}
 		fi
+		cap_arr[$i]=$special
+		i=$(($i+1))
+		#else
+		#	echo $i
+		#	echo "$line"
+		#	echo ${#str_arr[@]}
+		#fi
 	fi
 	done < $file_path 
 	player_count=$i
+	echo $i
 }
 
 function get_age {
@@ -87,6 +90,10 @@ function get_pos {
 	done
 }
 function get_length_name {
+	max_arr=()
+	max_flag=0
+	min_arr=()
+	min_flag=0
 	count=0
 	length_max=0
 	length_min=100
@@ -100,18 +107,32 @@ function get_length_name {
 		if [[ ${#without_space_name} -gt $length_max  ]];then
 			length_max=${#without_space_name}
 			max_count=$count
+			max_flag=0
+			max_arr[$max_flag]=$count
+		elif [[ ${#without_space_name} -eq $length_max ]];then
+			max_flag=$(($max_flag+1))
+			max_arr[$max_flag]=$count
 		fi
 
 		if [[ ${#without_space_name} -lt $length_min  ]];then
 			length_min=${#without_space_name}
 			min_count=$count
+			min_flag=0
+			min_arr[$min_flag]=$count
+		elif [[ ${#without_space_name} -eq $length_min ]];then
+			min_flag=$(($min_flag+1))
+			min_arr[$min_flag]=$count
 		fi
 	
 		count=$(($count+1))
 	done
 	#echo $min_count	
-	echo ${pl_arr[$max_count]}
-	echo ${pl_arr[$min_count]}
+	for n in ${max_arr[@]};do
+		echo ${pl_arr[$n]}
+	done 
+	for n in ${min_arr[@]};do
+		echo ${pl_arr[$n]}
+	done 
 
 }
 

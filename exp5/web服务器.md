@@ -277,8 +277,50 @@
 
     ![err2](img/err2.png)
 
+
+
+
+
+
+
+### 更正
+
+- 样式表不加载
+
+  - 问题解析
+
+    样式文件、图片文件访问是通过ip地址，而ip地址没有进行反向代理
+
+  - 解决方案
+
+    - 更改数据库
+
+      ```sql
+      UPDATE wp_options SET option_value = "http://192.168.103.26:8081" WHERE option_value = 'http://192.168.103.26';
+      ```
+
+    - 这样修改之后访问wp.sec.cuc.edn 会自动变成 wp.sec.cuc.edu.cn:8081
+
+      - 登陆管理页面修改WordPress Address (URL)和Site Address (URL) 
+
+        ```
+        http://wp.sec.cuc.edu.cn
+        http://wp.sec.cuc.edu.cn
+
+        ```
+
+  - 效果
+
+    ![chang1](img/chang1.png)
+
     ​
+
     ​
+
+    ​
+
+
+
 
 
 

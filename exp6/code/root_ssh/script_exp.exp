@@ -1,0 +1,30 @@
+#!/usr/bin/expect -f
+set user_password Password_Gn 
+set root_password Root_Password
+set timeout 3
+spawn sudo passwd root
+expect -ex {[sudo] password.+}
+send -- "$user_password\r"
+expect -re "Enter new UNIX password:.+"
+send -- "$root_password\r"
+expect -re "Retype new UNIX password:.+"
+send -- "$root_password\r"
+
+if {[file exists /etc/ssh/sshd_config]} {
+     
+     spawn  sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+     expect -ex {[sudo] password.+}
+     send -- "$user_password\r"
+     spawn  sudo cp /tmp/root_ssh/sshd_config /etc/ssh/sshd_config
+     expect -ex {[sudo] password.+}
+     send -- "$user_password\r"
+    
+} else {
+       error  "something wrong with ssh"
+}
+
+#fi
+spawn sudo service ssh reload
+expect -ex {[sudo] password.+}
+send -- "$user_password\r"
+expect eof

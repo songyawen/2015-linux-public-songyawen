@@ -1,0 +1,14 @@
+os_required: "Ubuntu 16.04.4 LTS"
+Tmp_Dir: /tmp/ansible_tmp_file
+Password_Ftp: ftp
+Anonymous_File: /home/ftp
+White_list_Ip: 192.168.26.103
+Ftp_User_Name: ftp_user1
+Ftp_Group_Name: ftp_user1
+Ftp_User_Home: /home/ftp_user1
+NFS_Share_Dir_R_W: /usr/nfs/common
+NFS_Share_Dir_R_O: /usr/nfs/only_read
+Domain_Name: cuc.edu.cn
+Host_name: wp.cuc.edu.cn.
+Host_ip: 10.5.5.28
+

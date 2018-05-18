@@ -1,0 +1,72 @@
+# check os
+- name: output operation system
+  shell: cat /etc/lsb-release  | grep -o "{{ os_required }}"
+  register: result
+- name: check operation system
+  fail: msg='check failed'
+  when: result.stdout != "{{ os_required }}"
+# install software
+- name: install required software
+  apt: name={{ item }} state=installed
+  with_items:
+    - proftpd
+    - expect
+    - nfs-kernel-server
+    - isc-dhcp-server
+    - bind9 
+    - smbclient
+
+- name: create temporary folder
+  file: path={{ Tmp_Dir }} state=directory
+# copy file  
+#- name: copy file to remote host
+#  copy: src=files/code/  dest={{ Tmp_Dir }}
+
+# setting up ftp
+
+- name: create anonymous directory
+  file: path={{ Anonymous_File }} state=directory 
+- name: create non anonymous directory
+  file: path={{ Ftp_User_Home }} state=directory
+- name: copy create user expect script
+  template: src=expect_ftp_user.sh dest={{ Tmp_Dir }}/expect_ftp_user.sh
+- name: add ftp user
+  command: expect {{ Tmp_Dir }}/expect_ftp_user.sh
+- name: copy config file 
+  template: src=proftpd.conf dest=/etc/proftpd/proftpd.conf backup=yes
+  notify: restart proftpd
+#- name: copy config file
+#  template: src=tls.conf  dest=/etc/proftpd/tls.conf backup=yes
+# setting up nfs
+
+- name: create read_write directory
+  file: path={{ NFS_Share_Dir_R_W }} state=directory
+- name: create only_read directory
+  file: path={{ NFS_Share_Dir_R_O }} state=directory
+- name: copy config file
+  template: src=exports dest=/etc/exports backup=yes
+  notify: restart nfs
+
+
+# setting up dhcp
+- name: copy interfaces config file
+  template: src=interface dest={{ Tmp_Dir }}/interface
+- name: add interfaces
+  shell: cat {{ Tmp_Dir }}/interface >> /etc/network/interfaces
+#- name: restart networking service
+#  shell: systemctl  restart networking
+- name: copy  config file 1
+  template: src=isc-dhcp-server dest=/etc/default/isc-dhcp-server backup=yes
+- name: copy config file 2
+  template: src=dhcpd.conf dest=/etc/dhcp/dhcpd.conf backup=yes
+  notify: restart dhcp
+
+# setting up dns
+- name: copy config file 1
+  template: src=host_name.db dest=/etc/bind/db.{{ Host_name }} backup=yes
+- name: copy config file 2
+  template: src=named.conf.local  dest=/etc/bind/named.conf.local backup=yes
+  notify: restart dns
+
+
+  

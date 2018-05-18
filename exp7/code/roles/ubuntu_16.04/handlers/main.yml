@@ -1,0 +1,9 @@
+
+- name: restart proftpd
+  shell: systemctl restart proftpd
+- name: restart nfs
+  shell: systemctl restart nfs-kernel-server
+- name: restart isc-dhcp-server
+  shell: systemctl restart isc-dhcp-server
+- name: restart bind9
+  shell: systemctl restart bind9

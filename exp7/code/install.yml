@@ -1,0 +1,6 @@
+---
+- hosts: ubuntu_host
+  remote_user: root
+  gather_facts: True
+  roles:
+    - ubuntu_16.04
